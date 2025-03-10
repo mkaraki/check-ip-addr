@@ -1,0 +1,116 @@
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+header>div.grand-title-bar {
+    background: linear-gradient(90deg, #38c, #16a);
+    border-bottom: 1px solid #e7e7e7;
+    padding: 10px 0;
+    text-align: center;
+    height: 50px;
+}
+
+header>div.grand-title-bar>div {
+    width: calc(50% - 20px);
+    display: inline-block;
+    color: #fff;
+    font-size: 14pt;
+    height: 30px;
+}
+
+header>div.grand-title-bar>div.left {
+    text-align: left;
+}
+
+header>div.grand-title-bar>div.right {
+    text-align: right;
+}
+
+div.content {
+    height: 100%;
+    overflow-y: auto;
+}
+
+main {
+    padding: 50px 10px 10px;
+    font-size: 13pt;
+}
+
+main h2 {
+    font-weight: bold;
+    font-size: 13pt;
+    margin: 10px 0;
+}
+
+main table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+main table th,
+main table td {
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+main table th {
+    background-color: #ced;
+    font-weight: normal;
+}
+
+main table td {
+    background-color: #ffe;
+    color: #476;
+}
+
+main table thead th {
+    background-color: #bdf;
+}
+
+div.help {
+    background: #ddf;
+    color: #000;
+    font-size: 13pt;
+    padding: 10px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+div.help hr {
+    height: 3px;
+    border: 3px solid #66a;
+}
+
+div.help h2 {
+    font-weight: bold;
+    font-size: 13pt;
+    margin: 0;
+}
+
+header>nav.top-level-nav {
+    background: linear-gradient(0deg, #4ac, #6ce, #4ac);
+    height: 35px;
+    font-size: 0;
+}
+
+header>nav.top-level-nav>a {
+    display: inline-block;
+    border-right: 1px solid #ccc;
+    height: 35px;
+    line-height: 25px;
+    font-size: 15pt;
+    margin: 0;
+    padding: 5px 20px;
+    text-decoration: none;
+    color: #fff;
+}
+
+div.container-fluid {
+    height: calc(100% - 86px);
+}
+
+div.main-section {
+    /* If added new menu, put size of them. */
+    height: 100%;
+}
