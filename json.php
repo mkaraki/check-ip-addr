@@ -29,7 +29,7 @@ function get_addr_info(string $address, int $port): array|false {
     try {
         $cityInfo = $geoCity->city($address);
         $return_obj['country'] = $cityInfo->country->isoCode;
-        $return_obj['city'] = $cityInfo->city->name;
+        $return_obj['city'] = $cityInfo->city->name ?? 'Unknown';
     }
     catch (Exception $e) {
         $return_obj['country'] = 'XX';
