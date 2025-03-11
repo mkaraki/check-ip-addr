@@ -117,6 +117,8 @@ global $result;
                 td.textContent = value;
             } else if (typeof value === 'object') {
                 td.textContent = JSON.stringify(value);
+            } else if (typeof value === 'boolean') {
+                td.textContent = value ? 'Yes' : 'No';
             } else {
                 td.textContent = 'Unable to display';
             }
