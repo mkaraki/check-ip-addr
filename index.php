@@ -1,9 +1,7 @@
 <?php
 require_once __DIR__ . '/json.php';
+require_once __DIR__ . '/_config.php';
 global $result;
-
-const V4_ENDPOINT = 'http://127.0.0.1:8080/';
-const V6_ENDPOINT = 'http://[::1]:8080/';
 ?>
 <!DOCTYPE html>
 <html lang="ja">

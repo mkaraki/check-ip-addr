@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
-
-const GEO_IP_DIR = __DIR__ . '/GeoIP';
+require_once __DIR__ . '/_config.php';
 
 function get_addr_info(string $address, int $port): array|false {
     if (!filter_var($address, FILTER_VALIDATE_IP)) {
