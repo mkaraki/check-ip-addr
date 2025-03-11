@@ -23,8 +23,6 @@ global $result;
     </div>
     <nav class="top-level-nav">
         <a href="#">IP</a>
-        <a href="#">TCP</a>
-        <a href="#">HTTP</a>
     </nav>
 </header>
 
@@ -85,16 +83,44 @@ global $result;
             </main>
         </div>
         <div class="col-3 help">
-            <h2>ASN/Country/City</h2>
+            <section>
+                <h2>逆引き</h2>
+                <hr />
+                IPアドレスの逆引きホスト名を取得します。
+                <dl>
+                    <dt>逆引き</dt>
+                    <dd>逆引きホスト名</dd>
+                    <dt>逆引き検証</dt>
+                    <dd>逆引きホスト名を正引きした際に、IPアドレスに一致するか</dd>
+                </dl>
+            </section>
             <hr />
-            IPアドレスのAS番号、国、市の情報をGeoLite2から取得します。
-            <br />
-            This product includes GeoLite2 data created by MaxMind, available from
-            <a href="https://www.maxmind.com">https://www.maxmind.com</a>.
+            <section>
+                <h2>ASN/Country/City</h2>
+                <hr />
+                IPアドレスのAS番号、国、市の情報をGeoLite2から取得します。
+                <br />
+                AS番号や国が取得できない場合は、0やXXが返されます。
+                <br />
+                This product includes GeoLite2 data created by MaxMind, available from
+                <a href="https://www.maxmind.com">https://www.maxmind.com</a>.
+            </section>
             <hr />
-            <h2>MAP-E Tunnel Info</h2>
-            <hr />
-            OCN Virtual Connectとv6プラスのMAP-E接続について、簡易的な判定を行います。
+            <section>
+                <h2>MAP-E Tunnel Info</h2>
+                <hr />
+                OCN Virtual Connectとv6プラスのMAP-E接続について、簡易的な判定を行います。
+                <dl>
+                    <dt>MAP-E情報</dt>
+                    <dd>事業者情報があるか</dd>
+                    <dt>事業者</dt>
+                    <dd>検出した事業者名</dd>
+                    <dt>使用可能ポート</dt>
+                    <dd>使用可能なIPv4ポート番号</dd>
+                    <dt>ポート一致</dt>
+                    <dd>IPv4への接続が利用可能ポートから通信されているか</dd>
+                </dl>
+            </section>
         </div>
     </div>
 </div>
@@ -104,12 +130,30 @@ global $result;
     const v6Info = <?= json_encode($result['v6'] ?? []) ?>;
     const isV6Available = <?= $result['contact_family'] === 'ip6' ? 'true' : 'false' ?>;
 
-    function applyInfoToTable(info, tbody) {
+    const addr_table_key_map = {
+        'address': 'IPアドレス',
+        'port': 'ポート番号',
+        'ptr': '逆引き',
+        'ptr_verify': '逆引き検証',
+        'asn': 'AS番号',
+        'as_org': 'AS組織名',
+        'country': '国',
+        'city': '市',
+    };
+
+    const map_e_key_map = {
+        'status': 'MAP-E情報',
+        'corp': '事業者',
+        'ports': '使用可能ポート',
+        'is_map-e_port': 'ポート一致'
+    };
+
+    function applyInfoToTable(info, tbody, keyMap = {}) {
         tbody.innerHTML = '';
         for (const [key, value] of Object.entries(info)) {
             const tr = document.createElement('tr');
             const th = document.createElement('th');
-            th.textContent = key;
+            th.textContent = keyMap[key] ?? key;
             const td = document.createElement('td');
             if (typeof value === 'string') {
                 td.textContent = value;
@@ -130,13 +174,13 @@ global $result;
 
     function applyInfo(info) {
         if (info.v4) {
-            applyInfoToTable(info.v4, document.getElementById('tbody-v4'));
+            applyInfoToTable(info.v4, document.getElementById('tbody-v4'), addr_table_key_map);
         }
         if (info.v6) {
-            applyInfoToTable(info.v6, document.getElementById('tbody-v6'));
+            applyInfoToTable(info.v6, document.getElementById('tbody-v6'), addr_table_key_map);
         }
         if (info['map-e']) {
-            applyInfoToTable(info['map-e'], document.getElementById('tbody-map-e'));
+            applyInfoToTable(info['map-e'], document.getElementById('tbody-map-e'), map_e_key_map);
         }
     }
 
@@ -145,7 +189,8 @@ global $result;
             .then(response => response.json())
             .then(data => {
                 applyInfo(data);
-            });
+            })
+            .catch(() => {});
     }
 
     if (!isV6Available && isV4Available) {
@@ -153,7 +198,8 @@ global $result;
             .then(response => response.json())
             .then(data => {
                 applyInfo(data);
-            });
+            })
+            .catch(() => {});
     }
 </script>
 </body>

@@ -13,7 +13,20 @@ function get_addr_info(string $address, int $port): array|false {
     $return_obj['address'] = $address;
     $return_obj['port'] = $port;
 
-    $return_obj['ptr'] = gethostbyaddr($address);
+    $ptr = gethostbyaddr($address);
+    if ($ptr === false || $ptr === $address) {
+        $ptr = null;
+    }
+    $return_obj['ptr'] = $ptr;
+
+    if ($ptr !== null) {
+        $ptr_resolve = gethostbynamel($address);
+        if ($ptr_resolve === false || !in_array($ptr, $ptr_resolve)) {
+            $return_obj['ptr_verify'] = false;
+        } else {
+            $return_obj['ptr_verify'] = true;
+        }
+    }
 
     $geoAsn = new GeoIp2\Database\Reader(GEO_IP_DIR . '/GeoLite2-ASN.mmdb');
     $geoCity = new GeoIp2\Database\Reader(GEO_IP_DIR . '/GeoLite2-City.mmdb');
