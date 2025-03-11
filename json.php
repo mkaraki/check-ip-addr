@@ -18,21 +18,21 @@ function get_addr_info(string $address, int $port): array|false {
     $geoCity = new GeoIp2\Database\Reader(GEO_IP_DIR . '/GeoLite2-City.mmdb');
 
     try {
-        $return_obj['asn'] = $geoAsn->asn($address);
+        $asInfo = $geoAsn->asn($address);
+        $return_obj['asn'] = $asInfo->autonomousSystemNumber;
+        $return_obj['as_org'] = $asInfo->autonomousSystemOrganization;
     }
     catch (Exception $e) {
         $return_obj['asn'] = 0;
+        $return_obj['as_org'] = 'Unknown';
     }
     try {
-        $return_obj['country'] = $geoCity->city($address)->country->isoCode;
+        $cityInfo = $geoCity->city($address);
+        $return_obj['country'] = $cityInfo->country->isoCode;
+        $return_obj['city'] = $cityInfo->city->name;
     }
     catch (Exception $e) {
         $return_obj['country'] = 'XX';
-    }
-    try {
-        $return_obj['city'] = $geoCity->city($address)->city->name;
-    }
-    catch (Exception $e) {
         $return_obj['city'] = 'Unknown';
     }
 
