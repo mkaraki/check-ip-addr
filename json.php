@@ -20,8 +20,8 @@ function get_addr_info(string $address, int $port): array|false {
     $return_obj['ptr'] = $ptr;
 
     if ($ptr !== null) {
-        $ptr_resolve = gethostbynamel($address);
-        if ($ptr_resolve === false || !in_array($ptr, $ptr_resolve)) {
+        $ptr_resolve = gethostbynamel($ptr);
+        if ($ptr_resolve === false || !in_array($address, $ptr_resolve)) {
             $return_obj['ptr_verify'] = false;
         } else {
             $return_obj['ptr_verify'] = true;
