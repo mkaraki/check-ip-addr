@@ -13,7 +13,7 @@ function get_map_e_v6plus_ports(string $v6_addr): array|false {
         return false;
     }
 
-    $octet_4 = ord($addr_bin[6]) << 8 + ord($addr_bin[7]);
+    $octet_4 = (ord($addr_bin[6]) << 8) + ord($addr_bin[7]);
     $psid = dechex(($octet_4 & 0xff00) >> 8);
 
     $ports = [];
@@ -35,7 +35,7 @@ function get_map_e_ocnvc_ports(string $v6_addr): array|false {
         return false;
     }
 
-    $octet_4 = ord($addr_bin[6]) << 8 + ord($addr_bin[7]);
+    $octet_4 = (ord($addr_bin[6]) << 8) + ord($addr_bin[7]);
     $psid = ($octet_4 & 0x3f00) >> 8;
 
     $ports = [];
