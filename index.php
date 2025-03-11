@@ -88,6 +88,9 @@ global $result;
             <h2>ASN/Country/City</h2>
             <hr />
             IPアドレスのAS番号、国、市の情報をGeoLite2から取得します。
+            <br />
+            This product includes GeoLite2 data created by MaxMind, available from
+            <a href="https://www.maxmind.com">https://www.maxmind.com</a>.
             <hr />
             <h2>MAP-E Tunnel Info</h2>
             <hr />
