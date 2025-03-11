@@ -58,6 +58,7 @@ main table td {
 main table th {
     background-color: #ced;
     font-weight: normal;
+    min-width: 100px;
 }
 
 main table td {
