@@ -52,6 +52,7 @@ main table th,
 main table td {
     border: 1px solid #ccc;
     padding: 5px;
+    word-break: break-word;
 }
 
 main table th {
