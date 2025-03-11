@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/_config.php';
+require_once __DIR__ . '/utils/ntt_map-e.php';
 
 function get_addr_info(string $address, int $port): array|false {
     if (!filter_var($address, FILTER_VALIDATE_IP)) {
